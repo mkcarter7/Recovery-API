@@ -7,8 +7,8 @@ Each ViewSet handles CRUD operations and custom actions for their respective mod
 
 from .program import ProgramViewSet
 from .testimonial import TestimonialViewSet
-from .contact import ContactSubmissionView
-from .newsletter import NewsletterSubscriberView
+from .contact import ContactSubmissionView, ContactSubmissionAdminViewSet
+from .newsletter import NewsletterSubscriberView, NewsletterSubscriberAdminViewSet
 from .feature import FeatureViewSet
 from .site_content import SiteContentViewSet
 
@@ -16,7 +16,9 @@ __all__ = [
     'ProgramViewSet',
     'TestimonialViewSet',
     'ContactSubmissionView',
+    'ContactSubmissionAdminViewSet',
     'NewsletterSubscriberView',
+    'NewsletterSubscriberAdminViewSet',
     'FeatureViewSet',
     'SiteContentViewSet',
 ]

@@ -62,3 +62,19 @@ class SiteContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = SiteContent
         fields = '__all__'
+
+
+class ContactSubmissionAdminSerializer(serializers.ModelSerializer):
+    """Admin serializer for ContactSubmission with all fields"""
+    class Meta:
+        model = ContactSubmission
+        fields = ['id', 'name', 'email', 'phone', 'message', 'is_read', 'created_at']
+        read_only_fields = ['id', 'created_at']
+
+
+class NewsletterSubscriberAdminSerializer(serializers.ModelSerializer):
+    """Admin serializer for NewsletterSubscriber with all fields"""
+    class Meta:
+        model = NewsletterSubscriber
+        fields = ['id', 'first_name', 'last_name', 'email', 'is_active', 'subscribed_at', 'unsubscribed_at']
+        read_only_fields = ['id', 'subscribed_at']

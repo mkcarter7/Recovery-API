@@ -1,8 +1,10 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from ..serializers import NewsletterSubscriberSerializer
+from ..models import NewsletterSubscriber
+from ..serializers import NewsletterSubscriberSerializer, NewsletterSubscriberAdminSerializer
 
 
 class NewsletterSubscriberView(APIView):
@@ -16,3 +18,9 @@ class NewsletterSubscriberView(APIView):
                 status=status.HTTP_201_CREATED
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class NewsletterSubscriberAdminViewSet(ReadOnlyModelViewSet):
+    """Admin API endpoint for viewing newsletter subscriptions"""
+    queryset = NewsletterSubscriber.objects.all()
+    serializer_class = NewsletterSubscriberAdminSerializer
