@@ -1,12 +1,92 @@
 from rest_framework import serializers
-from .models import Program, Testimonial, ContactSubmission, NewsletterSubscriber, Feature, SiteContent
+from .models import (
+    Program,
+    ProgramType,
+    Testimonial,
+    ContactSubmission,
+    NewsletterSubscriber,
+    Feature,
+    SiteContent,
+    TeamMember,
+    Partner,
+)
 
 
 class ProgramSerializer(serializers.ModelSerializer):
     """Serializer for Program model"""
+    program_type = serializers.SlugRelatedField(
+        slug_field='code',
+        queryset=ProgramType.objects.all()
+    )
+    program_type_name = serializers.CharField(source='program_type.name', read_only=True)
+    program_type_detail = serializers.SerializerMethodField()
+
     class Meta:
         model = Program
-        fields = '__all__'
+        fields = [
+            'id',
+            'name',
+            'slug',
+            'program_type',
+            'program_type_name',
+            'program_type_detail',
+            'description',
+            'short_description',
+            'features',
+            'is_active',
+            'order',
+            'created_at',
+            'updated_at',
+        ]
+
+    def get_program_type_detail(self, obj):
+        return ProgramTypeSerializer(obj.program_type).data
+
+
+class ProgramTypeSerializer(serializers.ModelSerializer):
+    """Serializer for ProgramType model."""
+
+    class Meta:
+        model = ProgramType
+        fields = ['id', 'code', 'name', 'description', 'order', 'is_active']
+
+
+class TeamMemberSerializer(serializers.ModelSerializer):
+    """Serializer for TeamMember model."""
+
+    class Meta:
+        model = TeamMember
+        fields = [
+            'id',
+            'name',
+            'role',
+            'bio',
+            'photo_url',
+            'email',
+            'linkedin_url',
+            'order',
+            'is_active',
+            'created_at',
+            'updated_at',
+        ]
+
+
+class PartnerSerializer(serializers.ModelSerializer):
+    """Serializer for Partner model."""
+
+    class Meta:
+        model = Partner
+        fields = [
+            'id',
+            'name',
+            'description',
+            'website_url',
+            'logo_url',
+            'order',
+            'is_active',
+            'created_at',
+            'updated_at',
+        ]
 
 
 class TestimonialSerializer(serializers.ModelSerializer):

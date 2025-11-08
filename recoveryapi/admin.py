@@ -1,5 +1,15 @@
 from django.contrib import admin
-from .models import Program, Testimonial, ContactSubmission, NewsletterSubscriber, Feature, SiteContent
+from .models import (
+    Program,
+    ProgramType,
+    Testimonial,
+    ContactSubmission,
+    NewsletterSubscriber,
+    Feature,
+    SiteContent,
+    TeamMember,
+    Partner,
+)
 
 
 @admin.register(Program)
@@ -7,6 +17,14 @@ class ProgramAdmin(admin.ModelAdmin):
     list_display = ['name', 'program_type', 'is_active', 'order']
     list_filter = ['program_type', 'is_active']
     search_fields = ['name', 'description']
+    autocomplete_fields = ['program_type']
+
+
+@admin.register(ProgramType)
+class ProgramTypeAdmin(admin.ModelAdmin):
+    list_display = ['code', 'name', 'is_active', 'order']
+    list_filter = ['is_active']
+    search_fields = ['code', 'name']
 
 
 @admin.register(Testimonial)
@@ -43,3 +61,17 @@ class FeatureAdmin(admin.ModelAdmin):
 class SiteContentAdmin(admin.ModelAdmin):
     list_display = ['content_type', 'updated_at']
     readonly_fields = ['updated_at']
+
+
+@admin.register(TeamMember)
+class TeamMemberAdmin(admin.ModelAdmin):
+    list_display = ['name', 'role', 'is_active', 'order']
+    list_filter = ['is_active']
+    search_fields = ['name', 'role', 'bio']
+
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ['name', 'is_active', 'order']
+    list_filter = ['is_active']
+    search_fields = ['name', 'description']

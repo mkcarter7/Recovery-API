@@ -1,18 +1,15 @@
-from django.db import models
+﻿from django.db import models
 
 
 class SiteContent(models.Model):
-    """General site content/configuration"""
-    CONTENT_TYPES = [
-        ('hero_title', 'Hero Title'),
-        ('hero_subtitle', 'Hero Subtitle'),
-        ('about_story', 'About Story'),
-        ('about_mission', 'About Mission'),
-        ('contact_phone', 'Contact Phone'),
-    ]
+    """Key/value site content entries editable via the admin dashboard."""
 
-    content_type = models.CharField(max_length=50, choices=CONTENT_TYPES, unique=True)
-    content = models.TextField()
+    content_type = models.CharField(
+        max_length=100,
+        unique=True,
+        help_text="Machine-friendly key (e.g. 'hero_headline', 'contact_phone').",
+    )
+    content = models.TextField(blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
